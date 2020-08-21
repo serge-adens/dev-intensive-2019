@@ -10,8 +10,8 @@ data class User(
     var avatar: String?,
     var rating: Int = 0,
     var respect: Int = 0,
-    val lastVisit: Date? = null,
-    val isOnline: Boolean = false
+    var lastVisit: Date? = Date(),
+    var isOnline: Boolean = false
 ) {
     constructor(id: String, firstName: String?, lastName: String?) : this(
         id,
@@ -39,6 +39,63 @@ data class User(
     """.trimIndent()
     )
 
+    class Builder {
+        private lateinit var id: String
+        private var firstName: String? = null
+        private var lastName: String? = null
+        private var avatar: String? = null
+        private var rating: Int = 0
+        private var respect: Int = 0
+        private var lastVisit: Date? = Date()
+        private var isOnline: Boolean = false
+
+        fun id(value: String): Builder {
+            id = value
+            return this
+        }
+
+        fun build(): User {
+            val user = User(id)
+            user.firstName = firstName
+            return user
+        }
+
+        fun firstName(value: String): Builder {
+            firstName = value
+            return this
+        }
+
+        fun lastName(value: String): Builder {
+            lastName = value
+            return this
+        }
+
+        fun avatar(value: String): Builder {
+            avatar = value
+            return this
+        }
+
+        fun rating(value: Int): Builder {
+            rating = value
+            return this
+        }
+
+        fun respect(value: Int): Builder {
+            respect = value
+            return this
+        }
+
+        fun lastVisit(value: Date): Builder {
+            lastVisit = value
+            return this
+        }
+
+        fun isOnline(value: Boolean): Builder {
+            isOnline = value
+            return this
+        }
+    }
+
     companion object Factory {
         private var lastId: Int = -1
         fun makeUser(fullName: String?): User {
@@ -48,3 +105,4 @@ data class User(
         }
     }
 }
+
